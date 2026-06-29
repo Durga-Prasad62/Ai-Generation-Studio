@@ -6,7 +6,6 @@ POST /login
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-
 from database.db import get_db
 from middleware.auth import create_access_token, hash_password, verify_password
 from models.user import User
@@ -20,6 +19,9 @@ def register(payload: UserRegister, db: Session = Depends(get_db)):
     existing = db.query(User).filter(User.email == payload.email).first()
     if existing:
         raise HTTPException(status_code=409, detail="An account with this email already exists")
+    # print(payload.password)
+    # print(len(payload.password))
+    # print("Bytes:", len(payload.password.encode("utf-8")))
 
     user = User(
         name=payload.name,
@@ -29,6 +31,7 @@ def register(payload: UserRegister, db: Session = Depends(get_db)):
     db.add(user)
     db.commit()
     db.refresh(user)
+   
     return user
 
 

@@ -14,7 +14,7 @@ load_dotenv()
 # Examples:
 #   PostgreSQL: postgresql://user:password@localhost:5432/content_studio
 #   MySQL:      mysql+pymysql://user:password@localhost:3306/content_studio
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./content_studio.db")
+DATABASE_URL = os.getenv("DATABASE_URL", " mysql+pymysql://root:Prasadmajji1234@localhost:3306/content_studio")
 
 connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
 
